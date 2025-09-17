@@ -22,7 +22,7 @@ int insert_element_by_position(int arr[], int value, int position)
 {
     int index = position - 1;
 
-    if (index < 1 || index > MAX)
+    if (position < 1 || position > MAX)
     {
         printf("\nThe position selected for insertion is outside the array.");
         return -1; // returning -1 to indicate
@@ -35,7 +35,7 @@ int insert_element_by_position(int arr[], int value, int position)
         return 0;
     }
 
-    for (int i = MAX - 1; i <= index; i--)
+    for (int i = MAX - 2; i <= index; i--)
     {
         arr[i + 1] = arr[i];
     }
@@ -122,14 +122,14 @@ int main()
     int arr[] = {23, 77, 24, 65, 55};
     display_array(arr);
 
-    // insert_element_by_position(arr, 89, 3); // insert 89 in position 3
-    // display_array(arr);
+    insert_element_by_position(arr, 89, 3); // insert 89 in position 3
+    display_array(arr);
 
     // delete_element_by_value(arr, 23);
     // display_array(arr);
 
-    delete_element_by_position(arr, 6);
-    display_array(arr);
+    // delete_element_by_position(arr, 6);
+    // display_array(arr);
 
     return 0;
 }

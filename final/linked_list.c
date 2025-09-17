@@ -10,11 +10,13 @@ struct node *head = NULL;
 
 void begin_insert();
 void last_insert();
+void begin_delete();
 
 int main()
 {
     begin_insert();
     last_insert();
+    begin_delete();
 };
 
 void begin_insert()
@@ -40,7 +42,8 @@ void begin_insert()
     }
 }
 
-void last_insert(){
+void last_insert()
+{
     struct node *ptr, *temp;
     int val;
 
@@ -74,5 +77,23 @@ void last_insert(){
             ptr->next = NULL;
             printf("\nNode inserted");
         }
+    }
+}
+
+void begin_delete()
+{
+    struct node *ptr;
+
+    if (head == NULL)
+    {
+        printf("empty");
+    }
+    else
+    {
+
+        ptr = head;
+        head = ptr->next;
+        free(ptr);
+        printf("\nNode deleted from the begining ...\n");
     }
 }

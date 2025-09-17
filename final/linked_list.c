@@ -12,6 +12,7 @@ void begin_insert();
 void last_insert();
 void begin_delete();
 void last_delete();
+void display();
 
 int main()
 {
@@ -19,6 +20,7 @@ int main()
     last_insert();
     begin_delete();
     last_delete();
+    display();
 };
 
 void begin_insert()
@@ -122,5 +124,21 @@ void last_delete(){
         }
         ptr1->next = NULL;
         free(ptr);
+    }
+};
+
+void display(){
+    struct node *ptr;
+
+    ptr = head;
+
+    if(ptr == NULL){
+        printf("Nothing to print");
+    } else{
+
+        while(ptr->next != NULL){
+            printf("%d", ptr->data);
+            ptr = ptr->next;
+        }
     }
 }

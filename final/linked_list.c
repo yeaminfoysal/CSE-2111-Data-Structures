@@ -12,6 +12,7 @@ void begin_insert();
 void last_insert();
 void begin_delete();
 void last_delete();
+void search();
 void display();
 
 int main()
@@ -20,6 +21,7 @@ int main()
     last_insert();
     begin_delete();
     last_delete();
+    search();
     display();
 };
 
@@ -102,10 +104,11 @@ void begin_delete()
     }
 }
 
-void last_delete(){
+void last_delete()
+{
     struct node *ptr, *ptr1;
 
-        if (head == NULL)
+    if (head == NULL)
     {
         printf("\nlist is empty");
     }
@@ -114,11 +117,13 @@ void last_delete(){
         head = NULL;
         free(head);
         printf("\nOnly node of the list deleted ...\n");
-    } 
-    else{
+    }
+    else
+    {
         ptr = head;
 
-        while(ptr->next != NULL){
+        while (ptr->next != NULL)
+        {
             ptr1 = ptr;
             ptr = ptr->next;
         }
@@ -127,16 +132,61 @@ void last_delete(){
     }
 };
 
-void display(){
+void search()
+{
+    struct node *ptr;
+    int item, i = 0, flag = 0;
+    ptr = head;
+
+    if (ptr == NULL)
+    {
+        printf("\nEmpty List\n");
+    }
+    else
+    {
+
+        printf("\nEnter item which you want to search?\n");
+        scanf("%d", &item);
+
+        while (ptr == NULL)
+        {
+
+            if (ptr->data == item)
+            {
+                flag = 1;
+                printf("found at %d", i + 1);
+                break;
+            }
+            else
+            {
+
+                i++;
+                ptr = ptr->next;
+            }
+        }
+
+        if (flag == 0)
+        {
+            printf("Item not found\n");
+        }
+    }
+}
+
+void display()
+{
     struct node *ptr;
 
     ptr = head;
 
-    if(ptr == NULL){
+    if (ptr == NULL)
+    {
         printf("Nothing to print");
-    } else{
+    }
+    else
+    {
 
-        while(ptr->next != NULL){
+        while (ptr->next != NULL)
+        {
             printf("%d", ptr->data);
             ptr = ptr->next;
         }

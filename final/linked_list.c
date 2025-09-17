@@ -11,12 +11,14 @@ struct node *head = NULL;
 void begin_insert();
 void last_insert();
 void begin_delete();
+void last_delete();
 
 int main()
 {
     begin_insert();
     last_insert();
     begin_delete();
+    last_delete();
 };
 
 void begin_insert()
@@ -95,5 +97,30 @@ void begin_delete()
         head = ptr->next;
         free(ptr);
         printf("\nNode deleted from the begining ...\n");
+    }
+}
+
+void last_delete(){
+    struct node *ptr, *ptr1;
+
+        if (head == NULL)
+    {
+        printf("\nlist is empty");
+    }
+    else if (head->next == NULL)
+    {
+        head = NULL;
+        free(head);
+        printf("\nOnly node of the list deleted ...\n");
+    } 
+    else{
+        ptr = head;
+
+        while(ptr->next != NULL){
+            ptr1 = ptr;
+            ptr = ptr->next;
+        }
+        ptr1->next = NULL;
+        free(ptr);
     }
 }

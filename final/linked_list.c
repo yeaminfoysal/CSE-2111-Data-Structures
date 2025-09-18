@@ -1,46 +1,86 @@
+/*
+CSE2111 Data Structures.
+In this program we will learn linked list.
+Today we will learn
+begin_insert()
+begin_delete()
+This code was acquired from javatpoint.com
+*/
 #include <stdio.h>
-
+#include <stdlib.h>
 struct node
 {
     int data;
     struct node *next;
 };
-
 struct node *head = NULL;
 
 void begin_insert();
 void last_insert();
+void random_insert();
 void begin_delete();
 void last_delete();
-void search();
+void random_delete();
 void display();
-
+void search();
 int main()
 {
-    begin_insert();
-    last_insert();
-    begin_delete();
-    last_delete();
-    search();
-    display();
-};
+    int choice = 0;
+    while (choice != 9)
+    {
+        printf("\n\n*********Main Menu*********\n");
+        printf("\nChoose one option from the following list ...\n");
+        printf("\n===============================================\n");
+        printf("\n1.Insert in begining\n2.Insert at last\n3.Insert at any random location\n4.Delete from Beginning\n 5.Delete from last\n6.Delete node after specified location\n7.Search for an element\n8.Show\n9.Exit\n");
+        printf("\nEnter your choice?\n");
+        scanf("\n%d", &choice);
+        switch (choice)
+        {
+        case 1:
+            begin_insert();
+            break;
+        case 2:
+            last_insert();
+            break;
+        case 3:
+            random_insert();
+            break;
+        case 4:
+            begin_delete();
+            break;
+        case 5:
+            last_delete();
+            break;
+        case 6:
+            random_delete();
+            break;
+        case 7:
+            search();
+            break;
+        case 8:
+            display();
+            break;
+        case 9:
+            exit(0);
+            break;
+        default:
+            printf("Please enter valid choice..");
+        }
+    }
+}
 
-void begin_insert()
-{
-    struct node *ptr;
+void begin_insert() {
+    struct node *ptr; // create a pointer that will point to a struct node. Currently it is pointing to nothing  .
     int item;
-
-    ptr = (struct node *)malloc(sizeof(struct node));
-
+    ptr = (struct node *)malloc(sizeof(struct node)); // Allocates memory and returns the address memory allocated.
     if (ptr == NULL)
     {
         printf("\nOVERFLOW");
     }
     else
     {
-        printf("enter a value");
+        printf("\nEnter value\n");
         scanf("%d", &item);
-
         ptr->data = item;
         ptr->next = head;
         head = ptr;
@@ -48,23 +88,19 @@ void begin_insert()
     }
 }
 
-void last_insert()
-{
+void last_insert() {
     struct node *ptr, *temp;
-    int val;
-
+    int item;
     ptr = (struct node *)malloc(sizeof(struct node));
-
     if (ptr == NULL)
     {
-        printf("oveerflow");
+        printf("\nOVERFLOW");
     }
     else
     {
-
-        scanf("%d", &val);
-        ptr->data = val;
-
+        printf("\nEnter value?\n");
+        scanf("%d", &item);
+        ptr->data = item;
         if (head == NULL)
         {
             ptr->next = NULL;
@@ -73,7 +109,6 @@ void last_insert()
         }
         else
         {
-
             temp = head;
             while (temp->next != NULL)
             {
@@ -86,17 +121,47 @@ void last_insert()
     }
 }
 
-void begin_delete()
+void random_insert()
 {
-    struct node *ptr;
-
-    if (head == NULL)
+    int i, loc, item;
+    struct node *ptr, *temp;
+    ptr = (struct node *)malloc(sizeof(struct node));
+    if (ptr == NULL)
     {
-        printf("empty");
+        printf("\nOVERFLOW");
     }
     else
     {
+        printf("\nEnter element value");
+        scanf("%d", &item);
+        ptr->data = item;
+        printf("\nEnter the location after which you want to insert ");
+        scanf("\n%d", &loc);
+        temp = head;
+        for (i = 0; i < loc; i++)
+        {
+            temp = temp->next;
+            if (temp == NULL)
+            {
+                printf("\ncan't insert\n");
+                return;
+            }
+        }
+        ptr->next = temp->next;
+        temp->next = ptr;
+        printf("\nNode inserted");
+    }
+}
 
+void begin_delete()
+{
+    struct node *ptr;
+    if (head == NULL)
+    {
+        printf("\nList is empty\n");
+    }
+    else
+    {
         ptr = head;
         head = ptr->next;
         free(ptr);
@@ -107,7 +172,6 @@ void begin_delete()
 void last_delete()
 {
     struct node *ptr, *ptr1;
-
     if (head == NULL)
     {
         printf("\nlist is empty");
@@ -118,10 +182,10 @@ void last_delete()
         free(head);
         printf("\nOnly node of the list deleted ...\n");
     }
+
     else
     {
         ptr = head;
-
         while (ptr->next != NULL)
         {
             ptr1 = ptr;
@@ -129,8 +193,32 @@ void last_delete()
         }
         ptr1->next = NULL;
         free(ptr);
+        printf("\nDeleted Node from the last ...\n");
     }
-};
+}
+
+void random_delete()
+{
+    struct node *ptr, *ptr1;
+    int loc, i;
+    printf("\n Enter the location of the node after which you want to perform deletion \n");
+    scanf("%d", &loc);
+    ptr = head;
+    for (i = 0; i < loc; i++)
+    {
+        ptr1 = ptr;
+        ptr = ptr->next;
+
+        if (ptr == NULL)
+        {
+            printf("\nCan't delete");
+            return;
+        }
+    }
+    ptr1->next = ptr->next;
+    free(ptr);
+    printf("\nDeleted node %d ", loc + 1);
+}
 
 void search()
 {
@@ -144,25 +232,19 @@ void search()
     }
     else
     {
-
         printf("\nEnter item which you want to search?\n");
         scanf("%d", &item);
 
-        while (ptr == NULL)
+        while (ptr != NULL)
         {
-
             if (ptr->data == item)
             {
+                printf("Item found at location %d\n", i + 1);
                 flag = 1;
-                printf("found at %d", i + 1);
                 break;
             }
-            else
-            {
-
-                i++;
-                ptr = ptr->next;
-            }
+            i++;
+            ptr = ptr->next;
         }
 
         if (flag == 0)
@@ -175,19 +257,17 @@ void search()
 void display()
 {
     struct node *ptr;
-
     ptr = head;
-
     if (ptr == NULL)
     {
         printf("Nothing to print");
     }
     else
     {
-
-        while (ptr->next != NULL)
+        printf("\nprinting values . . . . .\n");
+        while (ptr != NULL)
         {
-            printf("%d", ptr->data);
+            printf("\n%d", ptr->data);
             ptr = ptr->next;
         }
     }
